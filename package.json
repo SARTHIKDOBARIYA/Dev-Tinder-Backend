@@ -1,0 +1,20 @@
+{
+  "name": "dev-tinder-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+  "dev": "nodemon src/app.js"
+  },
+  "keywords": [
+    "node.js"
+    "express.js",
+    "MongoDb"
+  ],
+  "author": "Sarthik",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.1",
+    "nodemon": "^3.1.7"
+  }
+}
