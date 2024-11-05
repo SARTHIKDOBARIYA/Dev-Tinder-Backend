@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-  "dev": "nodemon src/app.js"
+    "dev": "nodemon src/app.js"
   },
   "keywords": [
-    "node.js"
+    "node.js",
     "express.js",
     "MongoDb"
   ],
@@ -15,6 +15,7 @@
   "description": "",
   "dependencies": {
     "express": "^4.21.1",
+    "mongoose": "^8.8.0",
     "nodemon": "^3.1.7"
   }
 }
