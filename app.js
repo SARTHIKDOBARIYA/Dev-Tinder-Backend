@@ -34,7 +34,9 @@ app.get("/user",async (req, res) => {
         if(!user){
             res.status(404).send("user not found")
         }
-        res.status(200).send(user)
+        else{
+            res.status(200).send(user)
+        }
     }catch (e) {
         res.status(404).send("something went wrong")
     }
@@ -67,14 +69,26 @@ app.delete("/user",async(req,res)=>{
 // update data of the user
 app.patch("/user/:id",async(req,res)=>{
     const data=req.body;
+    const userId=req.params?.id;
 
     try{
-        const userId=req.params.id;
-        await User.findByIdAndUpdate(userId,data,{new:true})
+        const ALLOWED_UPDATES=["userId","photourl","about","gender","skills"]
+
+        const isupdateallowed=Object.keys(data).every((k)=>ALLOWED_UPDATES.includes(k))
+
+        if(!isupdateallowed){
+            throw new Error("update not allowed")
+        }
+
+        if(data?.skills.length >10){
+            throw new Error("skills are not more than 10")
+        }
+
+        await User.findByIdAndUpdate(userId,data,{new:true},{runValidators:true})
         res.status(200).send(data)
 
     }catch (e) {
-        res.status(404).send("something went wrong in update")
+        res.status(404).send("UPDATE FAILED"+e.message)
     }
 })
 
