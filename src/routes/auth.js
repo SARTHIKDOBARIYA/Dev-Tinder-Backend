@@ -40,7 +40,6 @@ router.post("/signup",async (req, res) => {
 router.post("/login", async (req, res) => {
     try {
         const { emailId, password } = req.body;
-        console.log("emailId",emailId);
 
         // Validate input
         if (!emailId || !password) {
