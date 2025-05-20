@@ -51,4 +51,41 @@ async(req,res)=>{
     }
 })
 
+route.post("/review/:status/:requestId",
+userAuth,
+async(req,res)=>{
+    try{
+    const user=req.user;
+    const {status,requestId}=req.params
+
+    //validate status
+
+    const allowedstatus=["accepted","rejected"]
+    if(!allowedstatus.includes(status)){
+        return res.status(400).json({message:"status is invalid"})
+    }
+
+    const connectionRequest=await ConnectionRequest.findOne({
+        _id:requestId,
+        toUserId:user._id,
+        status:"interested"
+    });
+
+    if(!connectionRequest){
+        return res.status(404).json({message:"connection is not found"})
+    }
+
+    connectionRequest.status=status;
+    const data=await connectionRequest.save()
+
+    res.status(200).send({message:`connection Request ${status} ${data}`})
+
+
+    }
+    catch(e){
+        res.status(400).send("Error:" + e.message)
+    }
+})
+
+
 module.exports=route

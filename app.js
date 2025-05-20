@@ -11,6 +11,7 @@ app.use(cookieparser())
 const authRouter=require('./src/routes/auth')
 const profileRouter=require('./src/routes/profile')
 const requestRouter=require('./src/routes/request')
+const userRouter=require('./src/routes/user')
 
 //get user by email
 // app.get("/user",async (req, res) => {
@@ -82,6 +83,7 @@ const requestRouter=require('./src/routes/request')
 app.use('/',authRouter);
 app.use('/profile',profileRouter);
 app.use('/request',requestRouter);
+app.use('/user',userRouter)
 
 connectDB()
     .then(()=>{
