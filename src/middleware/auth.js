@@ -4,14 +4,23 @@ const User = require("../model/user");
 const userAuth = async (req, res, next) => {
     try {
         // Read the token from req.cookies
-        const { token } = req.cookies;
+        const authHeader = req.headers.authorization;
+
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return res.status(401).json({
+                success: false,
+                message: 'Authorization token is required',
+            });
+        }
+
+        const token = authHeader.split(' ')[1];
 
         if (!token) {
             return res.status(401).json({ error: "Token is missing or invalid." });
         }
 
         // Verify the token
-        const decodedObj = jwt.verify(token, "DEV@Tinder$790");
+        const decodedObj = jwt.verify(token, process.env.JWT_SECREAT);
 
         const { _id } = decodedObj;
 

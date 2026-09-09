@@ -4,6 +4,7 @@ require("./src/config/database")
 const connectDB = require("./src/config/database");
 const User=require("./src/model/user")
 const cookieparser=require("cookie-parser")
+require("dotenv").config()
 
 app.use(express.json())
 app.use(cookieparser())
